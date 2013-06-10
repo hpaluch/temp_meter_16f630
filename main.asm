@@ -25,7 +25,7 @@ START
     MOVWF   OSCCAL
 ;*** setup OPTION_REG - Prescaler to Timer etc...
     CLRWDT 
-    MOVLW ~( 1<<T0CS | 1<<PSA  ) ; divide clock by 32
+    MOVLW ~( 1<<T0CS | 1<<PSA | 1<<PS1 | 1<<PS0 ) ; divide clock by 32
     BANKSEL OPTION_REG
     MOVWF   OPTION_REG
 ; comparator Off
