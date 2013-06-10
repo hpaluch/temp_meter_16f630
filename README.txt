@@ -11,8 +11,7 @@ with DS18B20 sensor and LED display.
   Schematics is in ExpressPCB sub folder.
 
   Project has been tested on DM163045 PICDEM Lab Development Kit
-with PicKit 3 programmer (included in PICDEM). All used parts
-are included in that kit.
+with PicKit 3 programmer (included in PICDEM). 
 
   Tested in MPLAB X IDE v1.80
 
