@@ -45,11 +45,11 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/intr.o ${OBJECTDIR}/globals.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/intr.o.d ${OBJECTDIR}/globals.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/intr.o ${OBJECTDIR}/globals.o ${OBJECTDIR}/display.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/intr.o.d ${OBJECTDIR}/globals.o.d ${OBJECTDIR}/display.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/intr.o ${OBJECTDIR}/globals.o
+OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/intr.o ${OBJECTDIR}/globals.o ${OBJECTDIR}/display.o
 
 
 CFLAGS=
@@ -94,6 +94,13 @@ ${OBJECTDIR}/globals.o: globals.asm  nbproject/Makefile-${CND_CONF}.mk
 	@${DEP_GEN} -d "${OBJECTDIR}/globals.o"
 	@${FIXDEPS} "${OBJECTDIR}/globals.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
 	
+${OBJECTDIR}/display.o: display.asm  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/display.o.d 
+	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/display.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -d__DEBUG  -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/display.lst\" -e\"${OBJECTDIR}/display.err\" $(ASM_OPTIONS)   -o\"${OBJECTDIR}/display.o\" \"display.asm\" 
+	@${DEP_GEN} -d "${OBJECTDIR}/display.o"
+	@${FIXDEPS} "${OBJECTDIR}/display.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
+	
 else
 ${OBJECTDIR}/main.o: main.asm  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR} 
@@ -115,6 +122,13 @@ ${OBJECTDIR}/globals.o: globals.asm  nbproject/Makefile-${CND_CONF}.mk
 	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/globals.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/globals.lst\" -e\"${OBJECTDIR}/globals.err\" $(ASM_OPTIONS)   -o\"${OBJECTDIR}/globals.o\" \"globals.asm\" 
 	@${DEP_GEN} -d "${OBJECTDIR}/globals.o"
 	@${FIXDEPS} "${OBJECTDIR}/globals.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
+	
+${OBJECTDIR}/display.o: display.asm  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/display.o.d 
+	@${FIXDEPS} dummy.d -e "${OBJECTDIR}/display.err" $(SILENT) -c ${MP_AS} $(MP_EXTRA_AS_PRE) -q -p$(MP_PROCESSOR_OPTION)  -l\"${OBJECTDIR}/display.lst\" -e\"${OBJECTDIR}/display.err\" $(ASM_OPTIONS)   -o\"${OBJECTDIR}/display.o\" \"display.asm\" 
+	@${DEP_GEN} -d "${OBJECTDIR}/display.o"
+	@${FIXDEPS} "${OBJECTDIR}/display.o.d" $(SILENT) -rsi ${MP_AS_DIR} -c18 
 	
 endif
 
