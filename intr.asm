@@ -27,8 +27,8 @@ INT_VECT  CODE    0x4               ; INT vector
     BTFSC APP_FLAGS,bAPP_MPLEX
     BSF sPORTA,bpDSP_MPLEX
     MOVF    DSP_BITS1,w
-    BTFSC   APP_FLAGS,bAPP_MPLEX
-    MOVF    DSP_BITS2,w
+;;; DEBUG    BTFSC   APP_FLAGS,bAPP_MPLEX
+;;; DEBUG    MOVF    DSP_BITS2,w
     BANKSEL  PORTC
     MOVWF    PORTC
 ;   copy BIT6 from W of display to sPORTA
@@ -40,8 +40,6 @@ INT_VECT  CODE    0x4               ; INT vector
     BANKSEL PORTA
     MOVWF   PORTA
 
-
-    INCF    DSP_BITS1,f ; DEBUG DEBUG
 ;*** handler ends
     MOVF    pclath_temp,W
     MOVWF   PCLATH

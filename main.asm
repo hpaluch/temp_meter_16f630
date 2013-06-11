@@ -5,6 +5,7 @@
     LIST P=PIC16F630
     INCLUDE <P16F630.INC>
     INCLUDE "globals.inc" ; our global variables
+    INCLUDE "display.inc" ; display utilities
 
     __CONFIG _CP_OFF & _CPD_OFF & _BODEN_OFF & _MCLRE_ON & _WDT_OFF & _PWRTE_ON & _INTRC_OSC_NOCLKOUT & _BOREN_ON
 
@@ -16,6 +17,9 @@ RES_VECT  CODE    0x0000            ; processor reset vector
 RCCAL CODE 0x3ff
 OSC_RET RES 1            ; keep RETLW xx
 
+MAIN_DATA UDATA_SHR
+vBCD    RES 1
+vWait1  RES 1
 
 ;*** main program code
 MAIN_PROG CODE                      ; let linker place main program
@@ -60,6 +64,26 @@ START
 ; enable Timer0 and Global Interrupts
 	BSF	INTCON,T0IE	; enable Timer interrupts
 	BSF	INTCON,GIE	; Global Interrupt Enable
-    GOTO $                          ; loop forever
+
+; simple TEST - increment vBCD...
+    CLRF vBCD
+LOOP1
+    MOVLW vBCD
+    MOVWF FSR
+    CALL DISP_BIN2BITS
+    MOVWF DSP_BITS1
+; wait 1s
+    MOVLW .125 ; interrupt takes 8ms * 125 ~= 1s
+    MOVWF vWait1
+; wait for interrupt
+LOOP2
+    BTFSS APP_FLAGS,bAPP_INT
+    GOTO LOOP2
+    BCF APP_FLAGS,bAPP_INT
+    DECFSZ vWait1,f
+    GOTO LOOP2
+; increment vBCD for testing purposes...
+    INCF vBCD,f
+    GOTO LOOP1
 
     END
