@@ -6,8 +6,8 @@
     INCLUDE <P16F630.INC>
     INCLUDE "globals.inc" ; our global variables
     INCLUDE "display.inc" ; display utilities
-
-    __CONFIG _CP_OFF & _CPD_OFF & _BODEN_OFF & _MCLRE_ON & _WDT_OFF & _PWRTE_ON & _INTRC_OSC_NOCLKOUT & _BOREN_ON
+; _MCLRE_ON require external Pull-Up - but it would be incompatible with PicKit 3...
+    __CONFIG _CP_OFF & _CPD_OFF & _BODEN_OFF & _MCLRE_OFF & _WDT_OFF & _PWRTE_ON & _INTRC_OSC_NOCLKOUT
 
 
 RES_VECT  CODE    0x0000            ; processor reset vector
@@ -73,7 +73,7 @@ LOOP1
     CALL DISP_BIN2BITS
     MOVWF DSP_BITS1
 ; wait 1s
-    MOVLW .125 ; interrupt takes 8ms * 125 ~= 1s
+    MOVLW .64 ; interrupt takes 8ms * 125 ~= 1s
     MOVWF vWait1
 ; wait for interrupt
 LOOP2
