@@ -70,8 +70,12 @@ START
 LOOP1
     MOVLW vBCD
     MOVWF FSR
+    SWAPF vBCD,f
     CALL DISP_BIN2BITS
     MOVWF DSP_BITS1
+    SWAPF vBCD,f
+    CALL DISP_BIN2BITS
+    MOVWF DSP_BITS2
 ; wait 1s
     MOVLW .64 ; interrupt takes 8ms * 125 ~= 1s
     MOVWF vWait1
