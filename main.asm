@@ -4,6 +4,7 @@
 ; MAIN module (RESET, Init....)
     LIST P=PIC16F630
     INCLUDE <P16F630.INC>
+    INCLUDE "globals.inc" ; our global variables
 
     __CONFIG _CP_OFF & _CPD_OFF & _BODEN_OFF & _MCLRE_ON & _WDT_OFF & _PWRTE_ON & _INTRC_OSC_NOCLKOUT & _BOREN_ON
 
@@ -42,6 +43,9 @@ START
 ; (at least in simulator - why???)
     BANKSEL TMR0
     CLRF    TMR0
+; initialize Display bits to something...
+;    BANKSEL DSP_BITS - shared BANKSEL not needed
+    CLRF    DSP_BITS
 ; enable Timer0 and Global Interrupts
 	BSF	INTCON,T0IE	; enable Timer interrupts
 	BSF	INTCON,GIE	; Global Interrupt Enable

@@ -2,9 +2,9 @@
 
     LIST P=PIC16F630
     INCLUDE <P16F630.INC>
-
+    INCLUDE "globals.inc" ; our global variables
 ; shared registers for context save
-CTX_SAVE    UDATA_SHR
+INTR_DAT UDATA_SHR
 w_temp  RES 1
 status_temp RES 1
 pclath_temp RES 1
@@ -18,8 +18,11 @@ INT_VECT  CODE    0x4               ; INT vector
     MOVF    PCLATH,W ; NOTE: changes STATUS bits!
     MOVWF   pclath_temp
 ;*** handler begins
+;    BANKSEL DSP_BITS ; shared - banksel not needed
+    MOVF    DSP_BITS,w
     BANKSEL PORTC
-    INCF    PORTC,f ; just debug...
+    MOVWF    PORTC
+    INCF    DSP_BITS,f ; DEBUG DEBUG
 ;*** handler ends
     MOVF    pclath_temp,W
     MOVWF   PCLATH
