@@ -11,6 +11,7 @@ pclath_temp RES 1
 
 
 INT_VECT  CODE    0x4               ; INT vector
+	BCF	INTCON,T0IF	; timer overflow - ack
     MOVWF   w_temp ; bank is unknown
     SWAPF   STATUS,W ; DON'T use MOVF! (changes Flag register)
     MOVWF   status_temp
@@ -26,7 +27,6 @@ INT_VECT  CODE    0x4               ; INT vector
     MOVWF   STATUS  ; also restores original bank
     SWAPF   w_temp,f
     SWAPF   w_temp,w
-	BCF	INTCON,T0IF	; timer overflow - ack
     RETFIE
 
     END
