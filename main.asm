@@ -24,6 +24,8 @@ START
     CALL    OSC_RET
     BANKSEL OSCCAL
     MOVWF   OSCCAL
+;*** our application flags
+    CLRF    APP_FLAGS
 ;*** setup OPTION_REG - Prescaler to Timer etc...
     CLRWDT 
     MOVLW ~( 1<<T0CS | 1<<PSA | 1<<PS1 | 1<<PS0 ) ; divide clock by 32
@@ -39,13 +41,22 @@ START
     MOVWF   PORTC ; all available PINs set to zero (Output)
     BANKSEL TRISC
     CLRF    TRISC
+; intialize PORTA outputs
+    MOVLW ~0
+    MOVWF sPORTA
+    BANKSEL PORTA
+    MOVWF PORTA
+    MOVLW ~(1<<bpDSP_A | 1<<bpDSP_MPLEX)
+    BANKSEL TRISA
+    MOVWF   TRISA
 ; clear Timer0 and prescaler - without this the prescaler does not work
 ; (at least in simulator - why???)
     BANKSEL TMR0
     CLRF    TMR0
 ; initialize Display bits to something...
 ;    BANKSEL DSP_BITS - shared BANKSEL not needed
-    CLRF    DSP_BITS
+    CLRF    DSP_BITS1
+    CLRF    DSP_BITS2
 ; enable Timer0 and Global Interrupts
 	BSF	INTCON,T0IE	; enable Timer interrupts
 	BSF	INTCON,GIE	; Global Interrupt Enable

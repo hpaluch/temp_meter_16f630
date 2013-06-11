@@ -18,11 +18,30 @@ INT_VECT  CODE    0x4               ; INT vector
     MOVF    PCLATH,W ; NOTE: changes STATUS bits!
     MOVWF   pclath_temp
 ;*** handler begins
-;    BANKSEL DSP_BITS ; shared - banksel not needed
-    MOVF    DSP_BITS,w
-    BANKSEL PORTC
+    BSF APP_FLAGS,bAPP_INT  ; interrupt flag for main code
+; negate multiplex bit
+    MOVLW   1<<bAPP_MPLEX
+    XORWF   APP_FLAGS,f
+; copy MPLEX bit to sPORTA
+    BCF sPORTA,bpDSP_MPLEX
+    BTFSC APP_FLAGS,bAPP_MPLEX
+    BSF sPORTA,bpDSP_MPLEX
+    MOVF    DSP_BITS1,w
+    BTFSC   APP_FLAGS,bAPP_MPLEX
+    MOVF    DSP_BITS2,w
+    BANKSEL  PORTC
     MOVWF    PORTC
-    INCF    DSP_BITS,f ; DEBUG DEBUG
+;   copy BIT6 from W of display to sPORTA
+    BCF sPORTA,bpDSP_A
+    ANDLW   1<<DSP_A
+    BTFSS   STATUS,Z
+    BCF sPORTA,bpDSP_A
+    MOVF    sPORTA,w
+    BANKSEL PORTA
+    MOVWF   PORTA
+
+
+    INCF    DSP_BITS1,f ; DEBUG DEBUG
 ;*** handler ends
     MOVF    pclath_temp,W
     MOVWF   PCLATH
