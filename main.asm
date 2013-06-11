@@ -38,6 +38,10 @@ START
     MOVWF   PORTC ; all available PINs set to zero (Output)
     BANKSEL TRISC
     CLRF    TRISC
+; clear Timer0 and prescaler - without this the prescaler does not work
+; (at least in simulator - why???)
+    BANKSEL TMR0
+    CLRF    TMR0
 ; enable Timer0 and Global Interrupts
 	BSF	INTCON,T0IE	; enable Timer interrupts
 	BSF	INTCON,GIE	; Global Interrupt Enable

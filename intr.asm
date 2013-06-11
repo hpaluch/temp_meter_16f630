@@ -17,8 +17,6 @@ INT_VECT  CODE    0x4               ; INT vector
     MOVF    PCLATH,W ; NOTE: changes STATUS bits!
     MOVWF   pclath_temp
 ;*** handler begins
-    BANKSEL TMR0
-    CLRF    TMR0     ; This seems to bi necessary, but why???
     BANKSEL PORTC
     INCF    PORTC,f ; just debug...
 ;*** handler ends
