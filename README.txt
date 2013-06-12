@@ -6,7 +6,8 @@ made by http://www.microchip.com
   Function: Digital temperature meter
 with DS18B20 sensor and LED display.
 
-  WARNING! THIS PROJECT IS IN EARLY NON-FUNCTIONAL STATE
+  WARNING! THIS PROJECT IS IN EARLY STATE! IT DOES NOT HANDLE
+  NEGATIVE TEMPERATURE YET.
 
   Schematics is in ExpressPCB sub folder.
 
