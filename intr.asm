@@ -36,7 +36,7 @@ INT_VECT  CODE    0x4               ; INT vector
     ANDLW   1<<DSP_A
     BTFSS   STATUS,Z
     BSF sPORTA,bpDSP_A
-    MOVF    sPORTA,w
+    MOVF    sPORTA,w  
     BANKSEL PORTA
     MOVWF   PORTA
 

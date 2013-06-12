@@ -9,7 +9,6 @@ DSP_D   EQU .3
 DSP_C   EQU .4
 DSP_B   EQU .5
 DSP_A   EQU .6
-DSP_MINUS EQU .7
 
 ; DSP_BITS export
     extern  DSP_BITS1
@@ -17,6 +16,7 @@ DSP_MINUS EQU .7
 ; port bits for display on PORTA
 bpDSP_A     EQU .5     ; RA5
 bpDSP_MPLEX EQU .4 ; RA4
+bpDSP_MINUS EQU .0 ; RA0
     extern sPORTA
 ; app flags
     extern APP_FLAGS

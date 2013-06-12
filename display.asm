@@ -6,14 +6,37 @@
 
 DISP_DATA UDATA_SHR
 vBCD    RES 1
-    GLOBAL vBCD
 vMSD    RES 1 ; temporary
 DISP_CODE CODE                      ; let linker place main program
 
-; Input: W: binary number (0-99)
+; Show E0 error message
+E0:
+    GLOBAL E0
+    MOVLW 0xE0  ; show E0 (error 0) on display
+    MOVWF vBCD
+    CALL BCD2DISP
+    GOTO $      ; loop forever
+
+; binary to display with minus sign
+; Input: vTEMPR
+; Output: vBCD,DISP_BITS1,DISP_BITS2,sPORTA,PORTA
+BIN2DISP:
+    GLOBAL BIN2DISP
+    CALL BIN2BCD
+    GOTO BCD2DISP
+
+
+; Input: vTEMPR: binary number (0-99)
 ; Output: vBCD: packed BCD number 0-0x99
 BIN2BCD:
-        GLOBAL  BIN2BCD
+;        GLOBAL  BIN2BCD
+        MOVF vTEMPR,w
+; is negative?
+        BTFSS   vTEMPR,7 ; sign bit
+        GOTO positive
+        XORLW 0xff
+        ADDLW .1   ; NEG = CPL + 1
+positive
         clrf    vMSD
 	    movwf   vBCD
 gtenth  movlw   .10
@@ -30,14 +53,19 @@ over
         RETURN
 
 
-BCD2DISP
-    GLOBAL BCD2DISP
+BCD2DISP:
+;    GLOBAL BCD2DISP
     SWAPF vBCD,f
     CALL DISP_BIN2BITS
     MOVWF DSP_BITS1
     SWAPF vBCD,f
     CALL DISP_BIN2BITS
     MOVWF DSP_BITS2
+; handle minus sign (in vTEMPR)
+    BSF sPORTA,bpDSP_MINUS ; 1 = MINUS Off
+    BTFSC vTEMPR,7 ; sign bit in vTEMPR
+    BCF sPORTA,bpDSP_MINUS ; 0 = MINUS On
+; everything shall be refreshed on interrupt!
     RETURN
 
 ; convert lowest for bits from FSR to display bits (into W)

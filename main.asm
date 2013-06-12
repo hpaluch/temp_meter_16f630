@@ -49,20 +49,33 @@ START
     MOVWF sPORTA
     BANKSEL PORTA
     MOVWF PORTA
-    MOVLW ~(1<<bpDSP_A | 1<<bpDSP_MPLEX)
+    MOVLW ~(1<<bpDSP_A | 1<<bpDSP_MPLEX | 1<<bpDSP_MINUS)
     BANKSEL TRISA
     MOVWF   TRISA
 ; clear Timer0 and prescaler - without this the prescaler does not work
 ; (at least in simulator - why???)
     BANKSEL TMR0
     CLRF    TMR0
-; initialize Display bits to something...
+; initialize Display bits to '-' '-'
 ;    BANKSEL DSP_BITS - shared BANKSEL not needed
-    CLRF    DSP_BITS1
-    CLRF    DSP_BITS2
+    MOVLW ~(1<<DSP_G)
+    MOVWF   DSP_BITS1
+    MOVWF   DSP_BITS2
 ; enable Timer0 and Global Interrupts
 	BSF	INTCON,T0IE	; enable Timer interrupts
 	BSF	INTCON,GIE	; Global Interrupt Enable
+
+; DEBUG START
+;    MOVLW 1
+;    MOVWF vTEMPR
+;DDD:
+;    CALL WAIT4INT
+;    CALL BIN2DISP
+;    CALL  WAIT1S
+;    DECF vTEMPR,f
+;    GOTO DDD
+; DEBUG END
+
 
 ; wait for interrupt
 LOOP2:
@@ -70,20 +83,10 @@ LOOP2:
     CALL GET_TEMP
     BTFSC APP_FLAGS,bAPP_ERR
     GOTO E0  ; Error 0 - DS18B20 not found
-    MOVF vTEMPR,w
-    CALL BIN2BCD
-    CALL  BCD2DISP
+    CALL BIN2DISP
 ; wait 1s
     CALL  WAIT1S
 ; measure temperature again
     GOTO LOOP2
-
-
-; Error 0
-E0:
-    MOVLW 0xE0  ; show E0 (error 0) on display
-    MOVWF vBCD
-    CALL BCD2DISP
-    GOTO $      ; loop forever
 
     END
