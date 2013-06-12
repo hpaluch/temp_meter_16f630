@@ -55,7 +55,7 @@ OW_RESET:
       WAIT          .500                        ; Drive Low for 500µs
       OW_HIZ
       WAIT          .70                         ; Release line and wait 70µs for PD Pulse
-      BTFSS         dsPORT,dsBIT                    ; Read for a PD Pulse
+      BTFSC         dsPORT,dsBIT                    ; Read for a PD Pulse
       BSF APP_FLAGS,bAPP_ERR       ; Set PDBYTE to 1 if get a PD Pulse
       WAIT          .400                        ; Wait 400µs after PD Pulse
       RETLW 0
