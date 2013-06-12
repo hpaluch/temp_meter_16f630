@@ -7,7 +7,27 @@
 DISP_DATA UDATA_SHR
 vBCD    RES 1
     GLOBAL vBCD
+vMSD    RES 1 ; temporary
 DISP_CODE CODE                      ; let linker place main program
+
+; Input: W: binary number (0-99)
+; Output: vBCD: packed BCD number 0-0x99
+BIN2BCD:
+        GLOBAL  BIN2BCD
+        clrf    vMSD
+	    movwf   vBCD
+gtenth  movlw   .10
+        subwf   vBCD,W
+        BTFSS   STATUS,C
+        goto    over
+        movwf   vBCD
+        incf    vMSD, F
+        goto    gtenth
+over    
+        SWAPF vMSD,w
+        ANDLW 0xf0
+        XORWF vBCD,f
+        RETURN
 
 
 BCD2DISP

@@ -71,8 +71,7 @@ LOOP2:
     BTFSC APP_FLAGS,bAPP_ERR
     GOTO E0  ; Error 0 - DS18B20 not found
     MOVF vTEMPR,w
-; TODO: binary to BCD conversion
-    MOVWF vBCD
+    CALL BIN2BCD
     CALL  BCD2DISP
 ; wait 1s
     CALL  WAIT1S
