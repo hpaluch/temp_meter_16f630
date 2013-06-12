@@ -1,22 +1,32 @@
 ; display.asm - display conversion/manipulation
 ;
-
     LIST P=PIC16F630
     INCLUDE <P16F630.INC>
     INCLUDE "globals.inc" ; our global variables
 
-
-
+DISP_DATA UDATA_SHR
+vBCD    RES 1
+    GLOBAL vBCD
 DISP_CODE CODE                      ; let linker place main program
 
+
+BCD2DISP
+    GLOBAL BCD2DISP
+    SWAPF vBCD,f
+    CALL DISP_BIN2BITS
+    MOVWF DSP_BITS1
+    SWAPF vBCD,f
+    CALL DISP_BIN2BITS
+    MOVWF DSP_BITS2
+    RETURN
+
 ; convert lowest for bits from FSR to display bits (into W)
-; Input: FSR = 4 bit binary number ( 0 - F )
+; Input: vBCD = 4 bit binary number ( 0 - F )
 ; Output: W Display bits (values for DISP_BITS1 or DISP_BITS2)
 DISP_BIN2BITS
-    GLOBAL DISP_BIN2BITS
     PAGESELW DISP_TBL
     MOVWF PCLATH
-    MOVF INDF,w
+    MOVF vBCD,w
     ANDLW 0xf ; ensure that there is no table overflow
     ADDWF PCL,f
 DISP_TBL

@@ -6,6 +6,7 @@
     INCLUDE <P16F630.INC>
     INCLUDE "globals.inc" ; our global variables
     INCLUDE "display.inc" ; display utilities
+    INCLUDE "ds18b20.inc" ; DS18B20 sensor
 ; _MCLRE_ON require external Pull-Up - but it would be incompatible with PicKit 3...
     __CONFIG _CP_OFF & _CPD_OFF & _BODEN_OFF & _MCLRE_OFF & _WDT_OFF & _PWRTE_ON & _INTRC_OSC_NOCLKOUT
 
@@ -18,8 +19,6 @@ RCCAL CODE 0x3ff
 OSC_RET RES 1            ; keep RETLW xx
 
 MAIN_DATA UDATA_SHR
-vBCD    RES 1
-vWait1  RES 1
 
 ;*** main program code
 MAIN_PROG CODE                      ; let linker place main program
@@ -65,29 +64,27 @@ START
 	BSF	INTCON,T0IE	; enable Timer interrupts
 	BSF	INTCON,GIE	; Global Interrupt Enable
 
-; simple TEST - increment vBCD...
-    CLRF vBCD
-LOOP1
-    MOVLW vBCD
-    MOVWF FSR
-    SWAPF vBCD,f
-    CALL DISP_BIN2BITS
-    MOVWF DSP_BITS1
-    SWAPF vBCD,f
-    CALL DISP_BIN2BITS
-    MOVWF DSP_BITS2
-; wait 1s
-    MOVLW .64 ; interrupt takes 8ms * 125 ~= 1s
-    MOVWF vWait1
 ; wait for interrupt
-LOOP2
-    BTFSS APP_FLAGS,bAPP_INT
+LOOP2:
+    CALL WAIT4INT
+    CALL GET_TEMP
+    BTFSC APP_FLAGS,bAPP_ERR
+    GOTO E0  ; Error 0 - DS18B20 not found
+    MOVF vTEMPR,w
+; TODO: binary to BCD conversion
+    MOVWF vBCD
+    CALL  BCD2DISP
+; wait 1s
+    CALL  WAIT1S
+; measure temperature again
     GOTO LOOP2
-    BCF APP_FLAGS,bAPP_INT
-    DECFSZ vWait1,f
-    GOTO LOOP2
-; increment vBCD for testing purposes...
-    INCF vBCD,f
-    GOTO LOOP1
+
+
+; Error 0
+E0:
+    MOVLW 0xE0  ; show E0 (error 0) on display
+    MOVWF vBCD
+    CALL BCD2DISP
+    GOTO $      ; loop forever
 
     END

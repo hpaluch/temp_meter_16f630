@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>globals.inc</itemPath>
       <itemPath>display.inc</itemPath>
+      <itemPath>ds18b20.inc</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -18,6 +19,7 @@
       <itemPath>intr.asm</itemPath>
       <itemPath>globals.asm</itemPath>
       <itemPath>display.asm</itemPath>
+      <itemPath>ds18b20.asm</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -33,7 +35,7 @@
         <targetDevice>PIC16F630</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>PICkit3PlatformTool</platformTool>
+        <platformTool>Simulator</platformTool>
         <languageToolchain>MPASMWIN</languageToolchain>
         <languageToolchainVersion>5.50</languageToolchainVersion>
         <platform>3</platform>
@@ -65,8 +67,8 @@
         <property key="hex-output-format" value="INHX32"/>
         <property key="map-file" value="build/link.map"/>
       </MPASMWIN-LD>
-      <Simulator>
-      </Simulator>
+      <PICkit3PlatformTool>
+      </PICkit3PlatformTool>
       <mpasmsuite>
       </mpasmsuite>
     </conf>

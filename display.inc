@@ -1,5 +1,6 @@
 ; display.inc - export of Display specific routines
 ;               
 
-
-	EXTERN DISP_BIN2BITS
+    EXTERN vBCD
+    EXTERN BCD2DISP
+	

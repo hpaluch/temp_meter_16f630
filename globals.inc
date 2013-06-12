@@ -22,3 +22,12 @@ bpDSP_MPLEX EQU .4 ; RA4
     extern APP_FLAGS
 bAPP_MPLEX  EQU .0  ; multiplex bit
 bAPP_INT    EQU .1  ; set on interrupt (when main code waits for INT)
+bAPP_ERR    EQU .2  ; error flag
+; DS18B20 specific constants
+dsPORT  EQU PORTA
+dsTRIS  EQU TRISA
+dsBIT   EQU .2
+    EXTERN vTEMPR
+; global utilities (globals.asm)
+    EXTERN WAIT4INT
+    EXTERN WAIT1S
