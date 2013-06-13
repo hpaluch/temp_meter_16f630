@@ -35,7 +35,7 @@
         <targetDevice>PIC16F630</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>PICkit3PlatformTool</platformTool>
+        <platformTool>Simulator</platformTool>
         <languageToolchain>MPASMWIN</languageToolchain>
         <languageToolchainVersion>5.50</languageToolchainVersion>
         <platform>3</platform>
