@@ -8,3 +8,6 @@ Schematics has been drawn in ExpressPCB
 Setup:
  Put *.s (Custom symbols) into your
 %USERPROFILE%\My Documents\ExpressPCB\SchComponents_Custom\
+
+ Put *.p (Custom PCB packages) into your
+%USERPROFILE%\My Documents\ExpressPCB\PCBComponents_Custom\
