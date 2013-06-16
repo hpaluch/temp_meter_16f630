@@ -35,7 +35,7 @@
         <targetDevice>PIC16F630</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>Simulator</platformTool>
+        <platformTool>PICkit3PlatformTool</platformTool>
         <languageToolchain>MPASMWIN</languageToolchain>
         <languageToolchainVersion>5.50</languageToolchainVersion>
         <platform>3</platform>
@@ -67,8 +67,8 @@
         <property key="hex-output-format" value="INHX32"/>
         <property key="map-file" value="build/link.map"/>
       </MPASMWIN-LD>
-      <PICkit3PlatformTool>
-      </PICkit3PlatformTool>
+      <Simulator>
+      </Simulator>
       <mpasmsuite>
       </mpasmsuite>
     </conf>
