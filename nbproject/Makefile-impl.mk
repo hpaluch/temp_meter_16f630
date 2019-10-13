@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=temp_meter_16f630.X
+PROJECTNAME=temp_meter_16f630
 
 # Active Configuration
 DEFAULTCONF=default
