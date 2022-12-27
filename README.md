@@ -29,8 +29,17 @@ c:\Program Files (x86)\Microchip\MPLABX\v2.35\
 
 # Notes
 
-Since beginning it seems that the temperature reported by DS18B20 seems
-to be 3 to 5 degrees higher than actual. The cause is unknown.
+According to various reports including this:
+
+> https://forum.arduino.cc/t/ds18b20-self-heating-or-what/208495
+>
+> Bare device, 5-V supply, 1-second polling - self-heating up to 2-Celsius and rising.
+> Stuck an old Stanley knife blade on as a heat sink and self-heating
+> at 30-second polling less than +0.5-Celsius.
+
+So I have to use TO-92 heat sink for DS18B20 and possibly even reduce poll interval
+to avoid _self-heting_ of temperature sensor.
+
 
 
 # Resources
