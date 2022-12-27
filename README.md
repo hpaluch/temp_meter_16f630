@@ -6,6 +6,8 @@ Here is  project for PIC16F630 microcontroller
 made by http://www.microchip.com.
 
 ![PIC16F630 Temp meter prototype](https://raw.githubusercontent.com/hpaluch/temp_meter_16f630/master/temp-meter-prototype.jpg)
+
+Above image is from revived project in 2022 (original was written in 2013)
   
 Function: Digital temperature meter
 with DS18B20 sensor and LED display.
