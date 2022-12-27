@@ -1,3 +1,10 @@
 build/
 dist/
 nbproject/private/
+nbproject/*.mk
+nbproject/*.bash
+nbproject/Makefile-genesis.properties
+
+*.bmp
+*.db
+Originals/

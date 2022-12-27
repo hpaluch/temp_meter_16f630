@@ -5,6 +5,7 @@
 Makefile text eol=lf
 *.mk text eol=lf
 *.bash text eol=lf
+#nbproject/*.xml text eol=crlf
 
 # binary - do not touch
 *.PNG binary
