@@ -44,6 +44,12 @@ to avoid _self-heting_ of temperature sensor.
 
 # Resources
 
+Realated projects:
+
+- https://github.com/hpaluch/microstick2-projects#project-pic24fj-thermometer
+  - Thermometer with PIC24FJ64GB002, DS18B20 and 4-digit multiplexed LED display BQ-M512RD
+  - written in C (no assembly)
+
 Project Specific Links:
 
 * DS18B20 DataSheet
